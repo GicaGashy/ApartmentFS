@@ -41,5 +41,9 @@ namespace AptOnly.Models
         //relatinship to user
         public IdentityUser User { get; set; }
         public string UserId { get; set; }
+
+        public Apartment() {
+            Image = "apt.png";
+        }
     }
 }

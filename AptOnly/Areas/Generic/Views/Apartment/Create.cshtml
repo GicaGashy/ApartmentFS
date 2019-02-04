@@ -1,0 +1,129 @@
+﻿
+@model AptOnly.ViewModels.CreateApartment
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container text-center mb-5 mt-2">
+    <h2>Krijo nje Apartment</h2>
+</div>
+
+<!--
+
+          "AddressId,StreetName1,StreetName2,VillageName, " +
+            "StatusId, Description, IsNew, ReleaseDate" +
+            "ApartmentId, Floor, Bedroom, BathRoom, PricePerMonth, IsFurbished, M2, PricePerM2, Image, Address, Status, IdentityUser" +
+            "CityId, CityName")]
+-->
+<div class="container">
+    <form asp-action="Create" class="form-box">
+        <div class="row">
+            <div class="col">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <h4>Adresa</h4>
+                <div class="form-group">
+                    <label asp-for="Address.StreetName1" class="control-label">Emri i Rruges 1*</label>
+                    <input asp-for="Address.StreetName1" class="form-control" />
+                    <span asp-validation-for="Address.StreetName1" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address.StreetName2" class="control-label">Emri i Rruges 2</label>
+                    <input asp-for="Address.StreetName2" class="form-control" />
+                    <span asp-validation-for="Address.StreetName1" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <select asp-for="City" asp-items="@(new SelectList(Model.Cities,"CityId", "CityName"))" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address.VillageName" class="control-label">Fshati</label>
+                    <input asp-for="Address.VillageName" class="form-control" />
+                    <span asp-validation-for="Address.VillageName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col border-left">
+                <h4>Statusi i Baneses</h4>
+                <div class="form-group">
+                    <label asp-for="Status.Description" class="control-label">Pershkrimi *</label>
+                    <textarea asp-for="Status.Description" class="form-control"></textarea>
+                    <span asp-validation-for="Address.StreetName1" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <input asp-for="Status.IsNew" class="form-check-input" type="checkbox" />
+                    <label asp-for="Status.IsNew" class="control-label">E re?</label>
+                    <span asp-validation-for="Status.IsNew" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Status.ReleaseDate" class="control-label">Lansimi*</label>
+                    <input asp-for="Status.ReleaseDate" class="form-control" type="date" placeholder="mm-dd-yyyy" />
+
+                    <span asp-validation-for="Status.ReleaseDate" class="text-danger"></span>
+                </div>
+
+            </div>
+
+        </div>
+        <hr />
+        <div class="row">
+            <h3>Te dhenat e baneses</h3>
+        </div>
+
+        <div class="row">
+            <div class="col-6 border-right">
+                <div class="form-group">
+                    <label asp-for="Apartment.Floor" class="control-label">Kati</label>
+                    <select asp-for="Apartment.Floor" class="form-control">
+                        @for (var i = 1; i < 30; i++)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="Apartment.Bedroom" class="control-label">Dhoma</label>
+                    <select asp-for="Apartment.Bedroom" class="form-control">
+                        @for (var i = 1; i < 10; i++)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Apartment.BathRoom" class="control-label">Banjo</label>
+                    <select asp-for="Apartment.BathRoom" class="form-control">
+                        @for (var i = 1; i < 10; i++)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label asp-for="Apartment.M2" class="control-label">Metra Katror</label>
+                    <input asp-for="Apartment.M2" type="text" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Apartment.PricePerM2" class="control-label">Cmimi per meter katror</label>
+                    <input asp-for="Apartment.PricePerM2" type="text" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row border-top">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Apartment.Image" class="control-label">Foto</label>
+                    <input asp-for="Apartment.Image" class="form-control-file" type="file" name="imageFile" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
