@@ -1,0 +1,69 @@
+﻿@model AptOnly.Models.Apartment
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Apartment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Floor" class="control-label"></label>
+                <input asp-for="Floor" class="form-control" />
+                <span asp-validation-for="Floor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bedroom" class="control-label"></label>
+                <input asp-for="Bedroom" class="form-control" />
+                <span asp-validation-for="Bedroom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BathRoom" class="control-label"></label>
+                <input asp-for="BathRoom" class="form-control" />
+                <span asp-validation-for="BathRoom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PricePerMonth" class="control-label"></label>
+                <input asp-for="PricePerMonth" class="form-control" />
+                <span asp-validation-for="PricePerMonth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsFurbished" class="control-label"></label>
+                <input asp-for="IsFurbished" class="form-control" />
+                <span asp-validation-for="IsFurbished" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="M2" class="control-label"></label>
+                <input asp-for="M2" class="form-control" />
+                <span asp-validation-for="M2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PricePerM2" class="control-label"></label>
+                <input asp-for="PricePerM2" class="form-control" />
+                <span asp-validation-for="PricePerM2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="Image" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

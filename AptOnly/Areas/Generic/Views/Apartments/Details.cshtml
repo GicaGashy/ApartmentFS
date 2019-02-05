@@ -1,0 +1,72 @@
+﻿@model AptOnly.Models.Apartment
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Apartment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Floor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Floor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Bedroom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Bedroom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BathRoom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BathRoom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PricePerMonth)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PricePerMonth)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsFurbished)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsFurbished)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.M2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.M2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PricePerM2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PricePerM2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ApartmentId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

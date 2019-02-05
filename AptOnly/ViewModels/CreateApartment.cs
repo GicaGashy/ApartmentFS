@@ -14,9 +14,9 @@ namespace AptOnly.ViewModels
         public Apartment Apartment { get; set; }
         public Address Address { get; set; }
         public Status Status { get; set; }
-        public List<City> Cities { get; set; }
-        public City City;
-
+        public List<City>Cities { set; get; }
+        public int CityId;
+        public string UserId { get; set; }
     }
 
 

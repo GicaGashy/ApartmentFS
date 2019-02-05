@@ -10,7 +10,7 @@ namespace AptOnly.Models
     {
         [Required]
         public int AddressId { get; set; }
-        [Required]
+
         public City City { get; set; }
 
         public string StreetName1 { get; set; }

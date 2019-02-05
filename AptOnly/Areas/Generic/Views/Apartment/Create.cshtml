@@ -30,13 +30,23 @@
                     <span asp-validation-for="Address.StreetName1" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Address.StreetName2" class="control-label">Emri i Rruges 2</label>
+                    <label asp-for="Address.StreetName2" class="control-label">Adresa</label>
                     <input asp-for="Address.StreetName2" class="form-control" />
                     <span asp-validation-for="Address.StreetName1" class="text-danger"></span>
                 </div>
+                
                 <div class="form-group">
-                    <select asp-for="City" asp-items="@(new SelectList(Model.Cities,"CityId", "CityName"))" class="form-control"></select>
+                    <label asp-for="CityId" class="control-label">Qyteti</label>
+
+                    <select asp-for="CityId" class="form-control">
+                        @foreach (var c in Model.Cities)
+                        {
+                            <option value=@c.CityId>@c.CityName</option>
+                        }
+                    </select>
                 </div>
+                
+                <input asp-for="CityId" type="hidden" name="name" value="" />
                 <div class="form-group">
                     <label asp-for="Address.VillageName" class="control-label">Fshati</label>
                     <input asp-for="Address.VillageName" class="form-control" />
@@ -48,7 +58,7 @@
                 <div class="form-group">
                     <label asp-for="Status.Description" class="control-label">Pershkrimi *</label>
                     <textarea asp-for="Status.Description" class="form-control"></textarea>
-                    <span asp-validation-for="Address.StreetName1" class="text-danger"></span>
+                    <span asp-validation-for="Status.Description" class="text-danger"></span>
                 </div>
                 <div class="form-group form-check">
                     <input asp-for="Status.IsNew" class="form-check-input" type="checkbox" />
@@ -58,7 +68,6 @@
                 <div class="form-group">
                     <label asp-for="Status.ReleaseDate" class="control-label">Lansimi*</label>
                     <input asp-for="Status.ReleaseDate" class="form-control" type="date" placeholder="mm-dd-yyyy" />
-
                     <span asp-validation-for="Status.ReleaseDate" class="text-danger"></span>
                 </div>
 
@@ -77,7 +86,7 @@
                     <select asp-for="Apartment.Floor" class="form-control">
                         @for (var i = 1; i < 30; i++)
                         {
-                            <option value="@i">@i</option>
+                            <option value=@i>@i</option>
                         }
                     </select>
 
@@ -87,7 +96,7 @@
                     <select asp-for="Apartment.Bedroom" class="form-control">
                         @for (var i = 1; i < 10; i++)
                         {
-                            <option value="@i">@i</option>
+                            <option value=@i>@i</option>
                         }
                     </select>
                 </div>
@@ -96,7 +105,7 @@
                     <select asp-for="Apartment.BathRoom" class="form-control">
                         @for (var i = 1; i < 10; i++)
                         {
-                            <option value="@i">@i</option>
+                            <option value=@i>@i</option>
                         }
                     </select>
                 </div>
@@ -105,18 +114,41 @@
                 <div class="form-group">
                     <label asp-for="Apartment.M2" class="control-label">Metra Katror</label>
                     <input asp-for="Apartment.M2" type="text" class="form-control" />
+                    <span asp-validation-for="Apartment.M2" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Apartment.PricePerM2" class="control-label">Cmimi per meter katror</label>
+                <label asp-for="Apartment.PricePerMonth" class="control-label">Cmimi per muaj (Euro)</label>
+                <input asp-for="Apartment.PricePerMonth" type="text" class="form-control" />
+                <span asp-validation-for="Apartment.PricePerM2" class="text-danger"></span>
+            </div>
+                <div class="form-group">
+                    <label asp-for="Apartment.PricePerM2" class="control-label">Cmimi per meter katror (Euro)</label>
                     <input asp-for="Apartment.PricePerM2" type="text" class="form-control" />
+                    <span asp-validation-for="Apartment.PricePerM2" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <input asp-for="Apartment.IsFurbished" class="form-check-input" type="checkbox" />
+                    <label asp-for="Apartment.IsFurbished" class="control-label">A eshte e mobiluar?</label>
+                    <span asp-validation-for="Apartment.IsFurbished" class="text-danger"></span>
                 </div>
             </div>
+            
         </div>
         <div class="row border-top">
-            <div class="col">
+            <div class="col bg-light">
                 <div class="form-group">
                     <label asp-for="Apartment.Image" class="control-label">Foto</label>
-                    <input asp-for="Apartment.Image" class="form-control-file" type="file" name="imageFile" />
+                    <input asp-for="Apartment.Image" class="form-control-file" type="file" name="image"/>
+                    <span asp-validation-for="Apartment.Image" class="text-danger"></span>
+                </div>
+            </div>
+            <hr />
+        </div>
+        <div class="row">
+            <hr />
+            <div class="col-3 mt-5">
+                <div class="form-group">
+                    <input type="submit" value="Shto" class="form-control btn btn-dark" />
                 </div>
             </div>
         </div>

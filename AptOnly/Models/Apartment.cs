@@ -7,29 +7,33 @@ using System.Threading.Tasks;
 
 namespace AptOnly.Models
 {
-    public class Apartment : IRentable
+    public class Apartment
     {
         [Required]
         public int ApartmentId { get; set; }
+
         [Required]
-        [RegularExpression(("[0-9]"), ErrorMessage="Only numbers can be entered")]
         public int Floor { get; set; }
+
         [Required]
-        [RegularExpression(("[0-9]"), ErrorMessage = "Only numbers can be entered")]
         public int Bedroom { get; set; }
+
         [Required]
-        [RegularExpression(("[0-9]"), ErrorMessage = "Only numbers can be entered")]
         public int BathRoom { get; set; }
+
         [Required]
-        [RegularExpression(("[0-9][.,]"), ErrorMessage = "Only numbers can be entered")]
-        public decimal? PricePerMonth { get; set; }
-        public bool? IsFurbished { get; set; }
+        public decimal PricePerMonth { get; set; }
+
+
+        public bool IsFurbished { get; set; }
+
         [Required]
-        [RegularExpression(("[0-9][.,]"), ErrorMessage = "Only numbers can be entered")]
-        public decimal? M2 { get; set; }
+        public decimal M2 { get; set; }
+        
         [Required]
-        [RegularExpression(("[0-9][.,]"), ErrorMessage = "Only numbers can be entered")]
-        public decimal? PricePerM2 { get; set; }
+        [DataType(DataType.Currency)]
+        public decimal PricePerM2 { get; set; }
+
         public string Image { get; set; }
 
         //relationship to address
