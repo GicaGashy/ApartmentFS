@@ -37,15 +37,16 @@
                 <li class="list-group-item">Banjo: @a.BathRoom</li>
                 <li class="list-group-item">Metra Katror: @a.M2</li>
                 <li class="list-group-item">Cmimi per Meter Katror: @a.PricePerM2 Euro</li>
+                <li class="list-group-item">Cmimi Total: @a.GetTotalPrice() Euro</li>
             </ul>
             <div class="card-body">
 
             </div>
             <div class="card-footer text-center">
                 <div class="btn-group btn-block">
-                    <a asp-action="Details" asp-route-id="@a.ApartmentId" class="card-link btn btn-info">Details</a>
-                    <a asp-action="Edit" asp-route-id="@a.ApartmentId" class="card-link btn btn-warning">Edit</a>
-                    <a href="#" class="card-link btn btn-danger">Delete</a>
+                    <a asp-action="Details" asp-route-id="@a.ApartmentId" class="card-link btn btn-info">Detajet</a>
+                    <a asp-action="Edit" asp-route-id="@a.ApartmentId" class="card-link btn btn-warning">Editoje</a>
+                    <a href="#" class="card-link btn btn-danger">Fshije</a>
                 </div>
             </div>
         </div>

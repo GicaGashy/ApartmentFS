@@ -49,7 +49,7 @@ namespace AptOnly.Models
 
         public decimal GetTotalPrice()
         {
-            return M2 * PricePerM2;
+            return Math.Round(M2 * PricePerM2, 2);
         }
     }
 }
