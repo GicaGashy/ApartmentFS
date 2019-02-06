@@ -37,10 +37,10 @@ namespace AptOnly.Models
         public string Image { get; set; }
 
         //relationship to address
-        public Address Address { get; set; }
+        public virtual Address Address { get; set; }
 
         //relationship to status
-        public Status Status { get; set; }
+        public virtual Status Status { get; set; }
 
         //relatinship to user
         public IdentityUser User { get; set; }
@@ -48,6 +48,11 @@ namespace AptOnly.Models
 
         public Apartment() {
             Image = "apt.png";
+        }
+
+        public decimal GetTotalPrice()
+        {
+            return M2 * PricePerM2;
         }
     }
 }

@@ -17,7 +17,7 @@
             "CityId, CityName")]
 -->
 <div class="container">
-    <form asp-action="Create" class="form-box">
+    <form asp-action="Create" class="form-box" enctype="multipart/form-data">
         <div class="row">
             <div class="col">
 
@@ -137,9 +137,8 @@
         <div class="row border-top">
             <div class="col bg-light">
                 <div class="form-group">
-                    <label asp-for="Apartment.Image" class="control-label">Foto</label>
-                    <input asp-for="Apartment.Image" class="form-control-file" type="file" name="image"/>
-                    <span asp-validation-for="Apartment.Image" class="text-danger"></span>
+                    <label class="control-label">Image</label>
+                    <input class="form-control" type="file" name="imageFile" />
                 </div>
             </div>
             <hr />

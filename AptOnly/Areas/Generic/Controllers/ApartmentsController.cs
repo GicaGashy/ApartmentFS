@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AptOnly.Data;
 using AptOnly.Models;
 
+
 namespace AptOnly.Areas.Generic.Controllers
 {
     [Area("Generic")]
@@ -23,7 +24,10 @@ namespace AptOnly.Areas.Generic.Controllers
         // GET: Generic/Apartments
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Apartments.Include(a => a.User);
+
+            var applicationDbContext = _context.Apartments.Include(apartment => apartment.User);
+
+
             return View(await applicationDbContext.ToListAsync());
         }
 

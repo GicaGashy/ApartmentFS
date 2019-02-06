@@ -18,6 +18,4 @@ namespace AptOnly.ViewModels
         public int CityId;
         public string UserId { get; set; }
     }
-
-
 }

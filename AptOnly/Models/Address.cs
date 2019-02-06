@@ -10,13 +10,10 @@ namespace AptOnly.Models
     {
         [Required]
         public int AddressId { get; set; }
-
-        public City City { get; set; }
-
+        public virtual City City { get; set; }
         public string StreetName1 { get; set; }
         public string StreetName2 { get; set; }
         public string VillageName { get; set; }
-
         //identity
     }
 }

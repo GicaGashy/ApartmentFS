@@ -1,0 +1,32 @@
+﻿@model AptOnly.Models.Apartment
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div>
+    <div class="jumbotron">
+        <h1 class="display-4">Banesa @Model.M2 m2</h1>
+
+        <p class="lead">@Model.Status.Description</p>
+        <hr class="my-4">
+        <p class="blockquote-footer"> Adresa: @Model.Address.City.CityName @Model.Address.VillageName ; @Model.Address.StreetName1 ; @Model.Address.StreetName2</p>
+        <p class="blockquote-footer"> Kati: @Model.Floor </p>
+        <p class="blockquote-footer"> Dhoma: @Model.Bedroom </p>
+        <p class="blockquote-footer"> Banjo: @Model.BathRoom </p>
+        <p class="blockquote-footer"> Cmimi per Muaj: @Model.PricePerMonth Euro</p>
+        <p class="blockquote-footer"> Cmimi per M2: @Model.PricePerM2 Euro</p>
+        <p class="blockquote-footer"> Cmimi total ne shitje: @Model.GetTotalPrice() Euro</p>
+        <p class="blockquote-footer">@(Model.IsFurbished ? "E mobiluar" : "E pa mobiluar")</p>
+
+        <div class="bg-light rounded p-2 m-2">
+            <img src="~/images/@Model.Image" class="rounded mx-auto d-block" style="max-width: 35em;" alt="Responsive image">
+        </div>
+        <p class="lead font-weight-bold">Kontakti: @Model.User.PhoneNumber : @Model.User.NormalizedUserName @Model.User.Email</p>
+        <div class="btn-group">
+            <a asp-action="Edit" asp-route-id="@Model.ApartmentId" class="btn btn-warning">Editoje</a>
+            <a asp-action="Index" class="btn btn-dark">Kthehu mbrapa</a>
+        </div>
+    </div>
+</div>

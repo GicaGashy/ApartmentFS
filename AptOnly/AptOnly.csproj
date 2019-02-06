@@ -19,10 +19,14 @@
     <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Areas\Generic\Data\" />
     <Folder Include="Areas\Generic\Models\" />
+    <Folder Include="Areas\Generic\ViewModels\" />
     <Folder Include="Areas\Identity\Services\" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Areas\Generic\Views\Apartment\Details.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\Generic\Views\_ViewImports.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
