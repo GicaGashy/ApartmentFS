@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row">
         <div class="col text-center m-3 border-bottom">
-            @if (Model.Count() > 0)
+            @if (Model != null && Model.Count() > 0)
             {
                 <h2>Banesat tuaja</h2>
             }
@@ -44,10 +44,9 @@
             <div class="card-footer text-center">
                 <div class="btn-group btn-block">
                     <a asp-action="Details" asp-route-id="@a.ApartmentId" class="card-link btn btn-info">Details</a>
-                    <a href="#" class="card-link btn btn-warning">Edit</a>
+                    <a asp-action="Edit" asp-route-id="@a.ApartmentId" class="card-link btn btn-warning">Edit</a>
                     <a href="#" class="card-link btn btn-danger">Delete</a>
                 </div>
-
             </div>
         </div>
         }

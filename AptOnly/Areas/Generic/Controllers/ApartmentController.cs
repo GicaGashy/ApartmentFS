@@ -114,9 +114,121 @@ namespace AptOnly.Areas.Generic.Controllers
                 _context.Add(status);
                 _context.Add(apartment);
                 await _context.SaveChangesAsync();
-                return View(vm);
+                return RedirectToAction("Index");
             }
             return View(vm);
+        }
+
+        // GET: Generic/Apartments/Edit/5
+        [Authorize]
+        [Area("Generic")]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var _contextApartment = _context.Apartments.Include(a => a.User)
+                .Include(a => a.Address).ThenInclude(c => c.City)
+                .Include(a => a.Status).Where(a => a.ApartmentId == id).FirstOrDefault();
+
+
+            var vm = new CreateApartment();
+
+            vm.Apartment = _contextApartment;
+            vm.Address = _contextApartment.Address;
+            vm.Status = _contextApartment.Status;
+            vm.Cities = _context.Cities.ToList();
+
+            return View(vm);
+
+        }
+
+        [Authorize]
+        [Area("Generic")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id,
+            [Bind("AddressId,StreetName1,StreetName2,VillageName, City")] Address address,
+            [Bind("StatusId, Description, IsNew, ReleaseDate")] Status status,
+            [Bind("ApartmentId, Floor, Bedroom, BathRoom, PricePerMonth, IsFurbished, M2, PricePerM2, Image, Address, Status, UserId")] Apartment apartment,
+            City city, IFormFile imageFile)
+
+        {
+            if (id != apartment.ApartmentId)
+            {
+                return NotFound();
+            }
+
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var vm = new CreateApartment();
+            address.City = city;
+            apartment.Address = address;
+            apartment.Status = status;
+            apartment.UserId = userId;
+            vm.CityId = city.CityId;
+            vm.Address = address;
+            vm.Status = status;
+            vm.Apartment = apartment;
+            vm.Apartment.ApartmentId = id;
+            vm.Cities = _context.Cities.ToList();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    #region
+                    if (imageFile != null)
+                    {
+                        //Image loading part
+                        var fileName = Path.GetRandomFileName() + Path.GetExtension(imageFile.FileName);
+                        var fileDirectory = "wwwroot/images";
+                        if (!Directory.Exists(fileDirectory))
+                        {
+                            Directory.CreateDirectory(fileDirectory);
+                        }
+                        var filePath = fileDirectory + "/" + fileName;
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await imageFile.CopyToAsync(stream);
+                        }
+                        apartment.Image = fileName;
+                        //Image loading part end
+                    }
+                    else
+                    {
+                        vm.Apartment.Image = apartment.Image;
+                    }
+                    #endregion
+                    _context.Update(address);
+                    _context.Update(status);
+                    _context.Update(apartment);
+
+                    await _context.SaveChangesAsync();
+
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ApartmentExists(apartment.ApartmentId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
+
+
+        private bool ApartmentExists(int id)
+        {
+            return _context.Apartments.Any(e => e.ApartmentId == id);
         }
 
     }
