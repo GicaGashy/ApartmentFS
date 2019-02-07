@@ -1,0 +1,32 @@
+﻿@model AptOnly.Models.Apartment
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+                <h2 class="text-center text-danger m-5">A jeni te sigurt qe deshironi ta fshini Apartmentin?</h2>
+            <div class="card" style="width: 22rem;">
+                <img src="~/images/@Model.Image" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">@Model.Status.Description</p>
+                    <p class="card-text">@Model.M2 M2</p>
+                </div>
+                <div class="text-center p-2">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="ApartmentId" />
+                        <input type="submit" value="Fshije" class="btn btn-danger" />
+                        <a asp-action="Index" class="btn btn-info">Kthehu Mbrapa</a>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+

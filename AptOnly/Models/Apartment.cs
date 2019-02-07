@@ -28,11 +28,16 @@ namespace AptOnly.Models
         public bool IsFurbished { get; set; }
 
         [Required]
+        public bool IsRenting { get; set; }
+
+        [Required]
         public decimal M2 { get; set; }
         
         [Required]
         [DataType(DataType.Currency)]
         public decimal PricePerM2 { get; set; }
+
+        public DateTime? TimeStamp { get; set; }
 
         public string Image { get; set; }
 
@@ -46,6 +51,10 @@ namespace AptOnly.Models
         public IdentityUser User { get; set; }
         public string UserId { get; set; }
 
+        public Apartment()
+        {
+            TimeStamp = DateTime.Now;
+        }
 
         public decimal GetTotalPrice()
         {

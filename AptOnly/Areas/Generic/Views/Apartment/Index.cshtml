@@ -27,9 +27,10 @@
         <div class="card m-2" style="width: 22rem;">
             <img src="~/images/@a.Image" class="card-img-bottom p-2" alt="" style="width: 22rem;">
             <div class="card-body">
-                <h5 class="card-title">Banesa</h5>
+                <h5 class="card-title">Banesa<span class="badge badge-@(a.IsRenting ? "primary" : "warning" )">@(a.IsRenting ? "Me qera" : "Ne shitje")</span></h5>
                 <p class="card-text">@a.Status.Description</p>
                 <p class="card-text font-weight-bold">@a.Address.City.CityName @a.Address.VillageName</p>
+
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Kati: @a.Floor</li>
@@ -46,7 +47,7 @@
                 <div class="btn-group btn-block">
                     <a asp-action="Details" asp-route-id="@a.ApartmentId" class="card-link btn btn-info">Detajet</a>
                     <a asp-action="Edit" asp-route-id="@a.ApartmentId" class="card-link btn btn-warning">Editoje</a>
-                    <a href="#" class="card-link btn btn-danger">Fshije</a>
+                    <a asp-action="Delete" asp-route-id="@a.ApartmentId" class="card-link btn btn-danger">Fshije</a>
                 </div>
             </div>
         </div>

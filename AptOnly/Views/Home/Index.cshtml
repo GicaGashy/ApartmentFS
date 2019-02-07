@@ -1,3 +1,28 @@
-﻿@{
+﻿@model IEnumerable<Apartment>
+@{
     ViewData["Title"] = "Home Page";
 }
+
+
+    <div class="m-5">
+        <div class="container">
+            <h1 class="text-center display-4 border-bottom pb-5"><i>Doni me ble? </i>Me shit? <i class="text-warning">Banesë...</i></h1>
+        </div>
+    </div>
+    <div class="container">
+        <h5 class="mb-5"><i>Banesat e fundit ( @Model.Count() )</i></h5>
+        @foreach (var a in Model)
+        {
+            <figure class="figure">
+                <img src="~/images/@a.Image" class="figure-img img-fluid rounded">
+                <figcaption class="figure-caption">@a.Address.City.CityName, @a.M2 m2 </figcaption>
+                <figcaption class="figure-caption">@a.GetTotalPrice() Euro</figcaption>
+                <figcaption class="figure-caption">@a.TimeStamp</figcaption>
+            </figure>
+            <hr />
+        }
+        <form asp-action="Index" method="post" class="text-center">
+            <input name="i" type="hidden" value="@Model.Count()" />
+            <input type="submit" name="name" value="Me shume..." class="btn btn-light" />
+        </form>
+    </div>

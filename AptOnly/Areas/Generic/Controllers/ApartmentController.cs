@@ -73,7 +73,7 @@ namespace AptOnly.Areas.Generic.Controllers
         public async Task<IActionResult> Create(
             [Bind("AddressId,StreetName1,StreetName2,VillageName, City")] Address address,
             [Bind("StatusId, Description, IsNew, ReleaseDate")] Status status,
-            [Bind("ApartmentId, Floor, Bedroom, BathRoom, PricePerMonth, IsFurbished, M2, PricePerM2, Image, Address, Status, UserId")] Apartment apartment,
+            [Bind("ApartmentId, Floor, Bedroom, BathRoom, PricePerMonth, IsFurbished, IsRenting, M2, PricePerM2, Image, Address, Status, UserId")] Apartment apartment,
             City city, IFormFile imageFile){
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var vm = new CreateApartment();
@@ -124,8 +124,9 @@ namespace AptOnly.Areas.Generic.Controllers
         [Area("Generic")]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            if (id == null )
             {
+
                 return NotFound();
             }
 
@@ -133,7 +134,10 @@ namespace AptOnly.Areas.Generic.Controllers
                 .Include(a => a.Address).ThenInclude(c => c.City)
                 .Include(a => a.Status).Where(a => a.ApartmentId == id).FirstOrDefault();
 
-
+            if (User.FindFirstValue(ClaimTypes.NameIdentifier) != _contextApartment.UserId)
+            {
+                return NotFound();
+            }
             var vm = new CreateApartment();
 
             vm.Apartment = _contextApartment;
@@ -152,7 +156,7 @@ namespace AptOnly.Areas.Generic.Controllers
         public async Task<IActionResult> Edit(int id,
             [Bind("AddressId,StreetName1,StreetName2,VillageName, City")] Address address,
             [Bind("StatusId, Description, IsNew, ReleaseDate")] Status status,
-            [Bind("ApartmentId, Floor, Bedroom, BathRoom, PricePerMonth, IsFurbished, M2, PricePerM2, Image, Address, Status, UserId")] Apartment apartment,
+            [Bind("ApartmentId, Floor, Bedroom, BathRoom, PricePerMonth, IsFurbished, IsRenting, M2, PricePerM2, Image, Address, Status, UserId")] Apartment apartment,
             City city, IFormFile imageFile)
 
         {
@@ -174,6 +178,11 @@ namespace AptOnly.Areas.Generic.Controllers
             vm.Apartment = apartment;
             vm.Apartment.ApartmentId = id;
             vm.Cities = _context.Cities.ToList();
+
+            if (userId != vm.Apartment.UserId)
+            {
+                return NotFound();
+            }
 
             if (ModelState.IsValid)
             {
@@ -225,6 +234,60 @@ namespace AptOnly.Areas.Generic.Controllers
             return View();
         }
 
+
+        // GET: Generic/Apartments/Delete/5
+        [Authorize]
+        [Area("Generic")]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var apartment = await _context.Apartments
+                .Include(a => a.User)
+                .Include(a => a.Address).ThenInclude(ad => ad.City)
+                .Include(a => a.Status).Where(u => u.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .FirstOrDefaultAsync(m => m.ApartmentId == id);
+            if (apartment == null)
+            {
+                return NotFound();
+            }
+
+            return View(apartment);
+        }
+
+        // POST: Generic/Apartments/Delete/5
+        [Authorize]
+        [Area("Generic")]
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            /*
+            var apartment = await _context.Apartments.FindAsync(id);
+            */
+            var apartment = await _context.Apartments
+                .Include(a => a.User)
+                .Include(a => a.Address).ThenInclude(ad => ad.City)
+                .Include(a => a.Status).Where(u => u.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .FirstOrDefaultAsync(m => m.ApartmentId == id);
+
+            var address = apartment.Address;
+            var status = apartment.Status;
+
+            _context.Addresses.Remove(address);
+            _context.Statuses.Remove(status);
+            _context.Apartments.Remove(apartment);
+            if (apartment == null)
+            {
+                return NotFound();
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
         private bool ApartmentExists(int id)
         {

@@ -117,10 +117,10 @@
                     <span asp-validation-for="Apartment.M2" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                <label asp-for="Apartment.PricePerMonth" class="control-label">Cmimi per muaj (Euro)</label>
-                <input asp-for="Apartment.PricePerMonth" type="text" class="form-control" />
-                <span asp-validation-for="Apartment.PricePerM2" class="text-danger"></span>
-            </div>
+                    <label asp-for="Apartment.PricePerMonth" class="control-label">Cmimi per muaj (Euro)</label>
+                    <input asp-for="Apartment.PricePerMonth" type="text" class="form-control" />
+                    <span asp-validation-for="Apartment.PricePerM2" class="text-danger"></span>
+                </div>
                 <div class="form-group">
                     <label asp-for="Apartment.PricePerM2" class="control-label">Cmimi per meter katror (Euro)</label>
                     <input asp-for="Apartment.PricePerM2" type="text" class="form-control" />
@@ -130,6 +130,17 @@
                     <input asp-for="Apartment.IsFurbished" class="form-check-input" type="checkbox" />
                     <label asp-for="Apartment.IsFurbished" class="control-label">A eshte e mobiluar?</label>
                     <span asp-validation-for="Apartment.IsFurbished" class="text-danger"></span>
+                </div>
+                <hr />
+                <div class="form-group form-check">
+                    <input type="radio" required asp-for="Apartment.IsRenting" id="RentingYes" value="true" checked />
+                    <label for="RentingYes" class="control-label">E leshoj me qera</label>
+                    <span asp-validation-for="Apartment.IsRenting" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <input type="radio" required asp-for="Apartment.IsRenting" id="RentingYes" value="false" />
+                    <label for="RentingYes" class="control-label">E shes</label>
+                    <span asp-validation-for="Apartment.IsRenting" class="text-danger"></span>
                 </div>
             </div>
             

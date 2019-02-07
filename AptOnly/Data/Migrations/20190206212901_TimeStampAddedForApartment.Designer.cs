@@ -4,14 +4,16 @@ using AptOnly.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AptOnly.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190206212901_TimeStampAddedForApartment")]
+    partial class TimeStampAddedForApartment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,8 +60,6 @@ namespace AptOnly.Data.Migrations
 
                     b.Property<bool>("IsFurbished");
 
-                    b.Property<bool>("IsRenting");
-
                     b.Property<decimal>("M2");
 
                     b.Property<decimal>("PricePerM2");
@@ -68,7 +68,7 @@ namespace AptOnly.Data.Migrations
 
                     b.Property<int?>("StatusId");
 
-                    b.Property<DateTime?>("TimeStamp");
+                    b.Property<DateTime>("TimeStamp");
 
                     b.Property<string>("UserId");
 

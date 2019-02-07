@@ -35,3 +35,12 @@ body {
         display: none;
     }
 }
+
+.g-main {
+    height: 500px;
+}
+
+.g-fix {
+    position: fixed;
+    z-index: 6;
+}
