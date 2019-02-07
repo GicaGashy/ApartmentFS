@@ -44,3 +44,15 @@ body {
     position: fixed;
     z-index: 6;
 }
+
+.g-link-unstyled{
+    text-decoration: none;
+}
+
+.g-color-white{
+    color: white;
+}
+
+.g-color-black{
+    color: black;
+}

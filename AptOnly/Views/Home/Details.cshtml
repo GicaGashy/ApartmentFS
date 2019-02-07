@@ -1,0 +1,54 @@
+﻿@model AptOnly.Models.Apartment
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div>
+    <div class="jumbotron">
+        <h1 class="display-4">Banesa @Model.M2 m2</h1>
+        <p class="lead">@Model.Status.Description</p>
+        <hr class="my-4">
+        <div class="row">
+            <div class="col">
+                <h4>Adresa</h4>
+                <p class="blockquote-footer">@Model.Address.City.CityName</p>
+                <p class="blockquote-footer">@Model.Address.StreetName1</p>
+                <p class="blockquote-footer">@Model.Address.StreetName2</p>
+                <p class="blockquote-footer">@Model.Address.VillageName </p>
+            </div>
+            <div class="col border-left">
+                <h4>Detajet Teknike</h4>
+                <p class="blockquote-footer"> Kati: @Model.Floor </p>
+                <p class="blockquote-footer"> Dhoma: @Model.Bedroom </p>
+                <p class="blockquote-footer"> Banjo: @Model.BathRoom </p>
+                <p class="blockquote-footer"> @Model.M2 m2</p>
+                <p class="blockquote-footer">@(Model.IsRenting ? "Me qera" : "Ne shitje")</p>
+
+            </div>
+            <div class="col border-left">
+                <h4>Detajet per Cmim</h4>
+                <p class="blockquote-footer"> Cmimi per Muaj: @Model.PricePerMonth Euro</p>
+                <p class="blockquote-footer"> Cmimi per M2: @Model.PricePerM2 Euro</p>
+                <p class="blockquote-footer"> Cmimi total ne shitje: @Model.GetTotalPrice() Euro</p>
+            </div>
+            <div class="col border-left">
+                <h4>Status</h4>
+                <p class="blockquote-footer">@(Model.IsFurbished ? "E mobiluar" : "E pa mobiluar")</p>
+                <p class="blockquote-footer">@(Model.Status.IsNew ? "E re" : "E vjeter")</p>
+                <p class="blockquote-footer">Viti i ndertimit: @Model.Status.ReleaseDate.Year</p>
+                <p class="blockquote-footer">Emri i Pronarit: @Model.User.UserName </p>
+                <p class="blockquote-footer">Emaili: @Model.User.Email</p>
+                <p class="blockquote-footer">Telefoni: @Model.User.PhoneNumber</p>
+                <p class="blockquote-footer">Viti i ndertimit: @Model.Status.ReleaseDate.Year</p>
+            </div>
+        </div>
+        <div class="bg-light rounded p-2 m-2">
+            <img src="~/images/@Model.Image" class="rounded mx-auto d-block" style="max-width: 35em;" alt="Responsive image">
+        </div>
+        <div class="btn-group">
+            <a asp-action="List" class="btn btn-dark">Kthehu mbrapa</a>
+        </div>
+    </div>
+</div>

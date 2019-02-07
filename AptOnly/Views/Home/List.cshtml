@@ -1,0 +1,77 @@
+﻿@model IEnumerable<AptOnly.Models.Apartment>
+@{
+    ViewData["Title"] = "List";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            
+            <form asp-action="List" method="get">
+                <div class="input-group m-3">
+                    <select name="i" class="custom-select" id="inputGroupSelect01">
+                        <option value="all">Te gjitha</option>
+                        <option value="time">Te Fundit</option>
+                        <option value="renting">Me Qera</option>
+                        <option value="selling">Ne shtije</option>
+                        <option value="m2Ascending">M2 ></option>
+                        <option value="m2Descending">M2 <</option>
+                    </select>
+                    <div class="input-group-prepend">
+                        <input type="submit" class="btn btn-dark input-group-text" value="Filtro">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="blockquote-footer">@ViewBag.Type</p>
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Statusi:</th>
+                        <th scope="col">Qyteti</th>
+                        <th scope="col">Kati</th>
+                        <th scope="col">Dhoma</th>
+                        <th scope="col">Banjo</th>
+                        <th scope="col">M2</th>
+                        <th scope="col">Cmimi</th>
+                        <th scope="col">E Mobiluar</th>
+                        <th scope="col">Regjistrimi/Modifikimi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var a in Model)
+                    {
+                        <tr>
+                            @if (a.IsRenting)
+                            {
+                                <td><span class="badge badge-primary">
+                                        <a asp-action="Details" asp-route-id="@a.ApartmentId" class="g-link-unstyled g-color-white">Me Qera</a>
+                                    </span>
+                                </td>
+                            }
+                            else
+                            {
+                                <td><span class="badge badge-warning">
+                                        <a asp-action="Details" asp-route-id="@a.ApartmentId" class="g-link-unstyled g-color-black">Ne Shtije</a>        
+                                    </span>
+                                </td>
+                            }
+                            <td>@a.Address.City.CityName</td>
+                            <td>@a.Floor</td>
+                            <td>@a.Bedroom</td>
+                            <td>@a.BathRoom</td>
+                            <td>@a.M2</td>
+                            <td>@(a.IsRenting ? a.PricePerMonth + " Euro Total" : a.GetTotalPrice() + " Euro/Muaj")</td>
+                            <td>@(a.IsFurbished ? "E Mobiluar" : "E pa mobiluar")</td>
+                            <td>@a.TimeStamp</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

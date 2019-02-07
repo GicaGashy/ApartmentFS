@@ -122,7 +122,7 @@ namespace AptOnly.Areas.Generic.Controllers
         // GET: Generic/Apartments/Edit/5
         [Authorize]
         [Area("Generic")]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit([Bind("tipi")]int? id)
         {
             if (id == null )
             {
