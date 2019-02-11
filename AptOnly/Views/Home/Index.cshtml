@@ -15,7 +15,22 @@
         {
             <figure class="figure">
                 <img src="~/images/@a.Image" class="figure-img img-fluid rounded">
-                <figcaption class="figure-caption">@a.Address.City.CityName, @a.M2 m2 </figcaption>
+                <figcaption class="figure-caption">
+                    @a.Address.City.CityName, @a.M2 m2
+                    @if (a.IsRenting)
+                    {
+                        <span class="badge badge-primary">
+                            <a asp-action="Details" asp-route-id="@a.ApartmentId" class="g-link-unstyled g-color-white">Me Qera</a>
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-warning">
+                            <a asp-action="Details" asp-route-id="@a.ApartmentId" class="g-link-unstyled g-color-black">Ne Shitje</a>
+                        </span>
+                    }
+
+                </figcaption>
                 <figcaption class="figure-caption">@a.GetTotalPrice() Euro</figcaption>
                 <figcaption class="figure-caption">@a.TimeStamp</figcaption>
             </figure>

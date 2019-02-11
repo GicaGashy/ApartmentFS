@@ -41,7 +41,14 @@
                     <select asp-for="CityId" class="form-control">
                         @foreach (var c in Model.Cities)
                         {
-                            <option value=@c.CityId>@c.CityName</option>
+                            if (Model.Address.City.CityId == c.CityId)
+                            {
+                                <option value=@c.CityId selected>@c.CityName</option>
+                            }
+                            else
+                            {
+                                <option value=@c.CityId>@c.CityName</option>
+                            }
                         }
                     </select>
                 </div>

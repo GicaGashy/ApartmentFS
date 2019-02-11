@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Apartment>
+
+@{
+    ViewData["Title"] = "Detailed Search";
+}
+
+<div class="container">
+    <div class="col">
+        <div class="row">
+            <div class="form-group">
+                <form asp-action="Search" method="post">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputCity">Qyteti</label>
+                            <input type="text" name="City" class="form-control" id="inputCity">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputZip">M2 Nga</label>
+                            <input type="number" name="m2From" class="form-control">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputZip">M2 Deri</label>
+                            <input type="number" name="m2To" class="form-control" id="inputZip">
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-dark input-group-text" type="submit" name="submit" value="Filtro" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="row">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Statusi:</th>
+                            <th scope="col">Qyteti</th>
+                            <th scope="col">Kati</th>
+                            <th scope="col">Dhoma</th>
+                            <th scope="col">Banjo</th>
+                            <th scope="col">M2</th>
+                            <th scope="col">Cmimi</th>
+                            <th scope="col">E Mobiluar</th>
+                            <th scope="col">Regjistrimi/Modifikimi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var a in Model)
+                        {
+                            <tr>
+                                @if (a.IsRenting)
+                                {
+                                    <td>
+                                        <span class="badge badge-primary">
+                                            <a asp-action="Details" asp-route-id="@a.ApartmentId" class="g-link-unstyled g-color-white">Me Qera</a>
+                                        </span>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <span class="badge badge-warning">
+                                            <a asp-action="Details" asp-route-id="@a.ApartmentId" class="g-link-unstyled g-color-black">Ne Shtije</a>
+                                        </span>
+                                    </td>
+                                }
+                                <td>@a.Address.City.CityName</td>
+                                <td>@a.Floor</td>
+                                <td>@a.Bedroom</td>
+                                <td>@a.BathRoom</td>
+                                <td>@a.M2</td>
+                                <td><i class="fas fa-euro-sign fa-fw">  </i>@(a.IsRenting ? a.PricePerMonth + " /Muaj" : a.GetTotalPrice() + " Total")</td>
+                                <td>@(a.IsFurbished ? "E Mobiluar" : "E pa mobiluar")</td>
+                                <td>@a.TimeStamp</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

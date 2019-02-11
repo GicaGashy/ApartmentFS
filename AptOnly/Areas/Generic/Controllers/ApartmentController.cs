@@ -16,7 +16,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AptOnly.Areas.Generic.Controllers
 {
-    [Area("Generic")]
+
     public class ApartmentController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -28,6 +28,7 @@ namespace AptOnly.Areas.Generic.Controllers
         // GET: Generic/Apartments
         [Authorize]
         [Area("Generic")]
+
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Apartments.Include(apartment => apartment.User)
@@ -36,6 +37,8 @@ namespace AptOnly.Areas.Generic.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        [Authorize]
+        [Area("Generic")]
         // GET: Generic/Apartments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -164,8 +167,6 @@ namespace AptOnly.Areas.Generic.Controllers
             {
                 return NotFound();
             }
-
-
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var vm = new CreateApartment();
             address.City = city;

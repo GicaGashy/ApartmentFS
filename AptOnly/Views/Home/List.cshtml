@@ -6,7 +6,6 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            
             <form asp-action="List" method="get">
                 <div class="input-group m-3">
                     <select name="i" class="custom-select" id="inputGroupSelect01">
@@ -64,7 +63,7 @@
                             <td>@a.Bedroom</td>
                             <td>@a.BathRoom</td>
                             <td>@a.M2</td>
-                            <td>@(a.IsRenting ? a.PricePerMonth + " Euro Total" : a.GetTotalPrice() + " Euro/Muaj")</td>
+                            <td><i class="fas fa-euro-sign fa-fw">  </i>@(a.IsRenting ? a.PricePerMonth + " /Muaj" : a.GetTotalPrice() + " Total")</td>
                             <td>@(a.IsFurbished ? "E Mobiluar" : "E pa mobiluar")</td>
                             <td>@a.TimeStamp</td>
                         </tr>

@@ -29,9 +29,16 @@
             </div>
             <div class="col border-left">
                 <h4>Detajet per Cmim</h4>
-                <p class="blockquote-footer"> Cmimi per Muaj: @Model.PricePerMonth Euro</p>
-                <p class="blockquote-footer"> Cmimi per M2: @Model.PricePerM2 Euro</p>
-                <p class="blockquote-footer"> Cmimi total ne shitje: @Model.GetTotalPrice() Euro</p>
+                @if (Model.IsRenting)
+                {
+                    <p class="blockquote-footer"> Cmimi per Muaj: @Model.PricePerMonth Euro</p>
+                }
+                else
+                {
+                    <p class="blockquote-footer"> Cmimi per M2: @Model.PricePerM2 Euro</p>
+                    <p class="blockquote-footer"> Cmimi total ne shitje: @Model.GetTotalPrice() Euro</p>
+                }
+
             </div>
             <div class="col border-left">
                 <h4>Status</h4>

@@ -29,9 +29,16 @@
             </div>
             <div class="col border-left">
                 <h4>Detajet per Cmim</h4>
-                <p class="blockquote-footer"> Cmimi per Muaj: @Model.PricePerMonth Euro</p>
-                <p class="blockquote-footer"> Cmimi per M2: @Model.PricePerM2 Euro</p>
-                <p class="blockquote-footer"> Cmimi total ne shitje: @Model.GetTotalPrice() Euro</p>
+                @if (Model.IsRenting)
+                {
+                    <p class="blockquote-footer"> Cmimi per Muaj: @Model.PricePerMonth Euro</p>
+                }
+                else
+                {
+                    <p class="blockquote-footer"> Cmimi per M2: @Model.PricePerM2 Euro</p>
+                    <p class="blockquote-footer"> Cmimi total ne shitje: @Model.GetTotalPrice() Euro</p>
+                }
+
             </div>
             <div class="col border-left">
                 <h4>Status</h4>
@@ -48,7 +55,8 @@
             <img src="~/images/@Model.Image" class="rounded mx-auto d-block" style="max-width: 35em;" alt="Responsive image">
         </div>
         <div class="btn-group">
-            <a asp-action="List" class="btn btn-dark">Kthehu mbrapa</a>
+            <!--<a asp-action="List" class="btn btn-dark">Kthehu mbrapa</a> -->
+            <input class="btn btn-dark" type="button" onclick="history.go(-1)" value="Kthehu mbrapa" />
         </div>
     </div>
 </div>

@@ -21,7 +21,46 @@ namespace AptOnly.Controllers
             _context = context;
         }
 
-        
+
+        public async Task<IActionResult> Search([Bind("City")] string City, [Bind("meFrom")]decimal m2From, [Bind("meTo")] decimal m2To
+            /*[Bind("meFrom")]decimal m2From, [Bind("meTo")] decimal m2To, [Bind("furbished")] bool IsFurbished*/)
+        {
+            var allApartments = _context.Apartments.Include(a => a.User)
+                                    .Include(a => a.Address).ThenInclude(c => c.City)
+                                    .Include(a => a.Status);
+            if (City == null && (m2From == 0 || m2To == 0))
+            {
+                return View(allApartments);
+            }
+
+            if (m2From == 0 || m2To == 0)
+            {
+                var CityOnlyFiltered = allApartments.Where(a => a.Address.City.CityName.Contains(City));
+                return View(CityOnlyFiltered);
+            }
+
+            if(City == null && (m2From != 0 && m2To != 0))
+            {
+                var MeterFileterd = allApartments.Where(a => a.M2 >= m2From && a.M2 <= m2To);
+                return View(MeterFileterd);
+            }
+
+
+
+            var apartmentsFiltered = allApartments.Where(a => a.Address.City.CityName.Contains(City))
+                                                .Where(a => a.M2 >= m2From && a.M2 <= m2To);
+
+
+            return View(apartmentsFiltered);
+        }
+
+        public async Task<IActionResult> About()
+        {
+            var apartments = await _context.Apartments.ToListAsync();
+
+            return View(apartments);
+        }
+
         public async Task<IActionResult> Index([Bind("Count")] int i)
         {
             if (i < 1)
