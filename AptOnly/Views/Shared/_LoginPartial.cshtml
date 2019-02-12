@@ -8,7 +8,15 @@
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a asp-area="Generic" asp-controller="Apartment" asp-action="Index" class="nav-link">Dashboard</a>
+                @if (User.IsInRole("GenericUser"))
+                {
+                    <a asp-area="Generic" asp-controller="Apartment" asp-action="Index" class="nav-link">Generic Dashboard</a>
+                }
+                else if(User.IsInRole("Administrator"))
+                {
+                    <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link">Admin Dashboard</a>
+                }
+
             </li>
             <li class="nav-item">
                 <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>

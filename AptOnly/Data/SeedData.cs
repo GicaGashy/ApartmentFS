@@ -38,7 +38,7 @@ namespace AptOnly.Data
                 IdentityUser user = new IdentityUser();
                 user.UserName = "admin@localhost";
                 user.Email = "admin@localhost.com";
-
+               
                 IdentityResult result = userManager.CreateAsync(user, "Kos100##").Result;
 
                 if(result.Succeeded)
@@ -58,6 +58,19 @@ namespace AptOnly.Data
                 if (result.Succeeded)
                 {
                     userManager.AddToRoleAsync(user, "GenericUser").Wait();
+                }
+            }
+
+            if (userManager.FindByNameAsync("bahri@localhost").Result == null)
+            {
+                IdentityUser u = new IdentityUser();
+                u.UserName = "bahri@localhost";
+                u.Email = "bahri@gmail.com";
+
+                IdentityResult r = userManager.CreateAsync(u, "Kos300##").Result;
+                if (r.Succeeded)
+                {
+                    userManager.AddToRoleAsync(u, "GenericUser").Wait();
                 }
             }
         }

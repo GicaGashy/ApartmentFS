@@ -33,6 +33,10 @@
 
         <div class="col">
             <div class="row">
+                @if (Model.Count() == 0)
+                {
+                <h5 class="text-lg-center text-black-50">Ska rezultate me kerkimin tuaj<i class="fas fa-hand-point-up fa-fw"></i></h5>
+                }
                 <table class="table">
                     <thead class="thead-light">
                         <tr>

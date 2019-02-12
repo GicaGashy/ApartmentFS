@@ -26,7 +26,7 @@ namespace AptOnly.Areas.Generic.Controllers
             _context = context;
         }
         // GET: Generic/Apartments
-        [Authorize]
+        [Authorize (Roles ="GenericUser, Administrator")]
         [Area("Generic")]
 
         public async Task<IActionResult> Index()

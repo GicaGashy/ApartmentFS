@@ -1,0 +1,48 @@
+﻿@model AptOnly.Areas.Admin.ViewModels.Users
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="m-5">
+    <a class="btn" asp-controller="Dashboard" ="" asp-action="Index"><i class="fas fa-arrow-left"></i>Mbrapa</a>
+    <h4 class="text-black-50">Mireserdhe @User.Identity.Name</h4>
+    <h5 class="text-black-50">Lista e Userave</h5>
+    <a asp-action="Create" class="btn btn-light btn-group-sm">Krijo Perdorues</a>
+    <hr />
+</div>
+
+
+<div class="container mt-5">
+    <div class="row>
+        <div class="col">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Emri</th>
+                        <th scope="col">Email-i</th>
+                        <th scope="col">Emri i Perduruesit</th>
+                        <th scope="col">Telefoni</th>
+                        <th scope="col">Aksioni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var u in Model.users)
+                    {
+                        <tr>
+                            <th>@u.UserName</th>
+                            <td>@u.Email</td>
+                            <td>@u.UserName</td>
+                            <td>@u.PhoneNumber</td>
+                            <td>
+                                <div class="btn-group-sm">
+                                    <a class="btn" href="#"><i class="fas fa-info"></i></a>
+                                    <a class="btn" href="#"><i class="fas fa-user-edit"></i></a>
+                                    <a class="btn" href="#"><i class="far fa-trash-alt"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
