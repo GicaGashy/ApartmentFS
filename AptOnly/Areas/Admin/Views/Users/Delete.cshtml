@@ -1,0 +1,23 @@
+﻿@model IdentityUser
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="container mt-5 mb-5 p-5">
+    <h3 class="mb-5">A jeni te sigurt qe doni t'a fshini perdoruesin?</h3>
+    <div class="card">
+        <div class="card-header">
+            <h3>@Model.UserName</h3>
+        </div>
+        <div class="card-body text-center">
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Delete" class="btn btn-danger" />
+                <a asp-action="Index" class="btn btn-info">Back to List</a>
+            </form>
+        </div>
+    </div>
+
+
+</div>

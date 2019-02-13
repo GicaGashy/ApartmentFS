@@ -8,6 +8,7 @@ using AptOnly.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AptOnly.Areas.Admin.Controllers
 {
@@ -143,6 +144,45 @@ namespace AptOnly.Areas.Admin.Controllers
             }
 
             return View();
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            var apartments = await _context.Apartments
+               .Include(a => a.User)
+               .Include(a => a.Address).ThenInclude(ad => ad.City)
+               .Include(a => a.Status).Where(u => u.UserId == id).ToListAsync();
+
+            foreach (var a in apartments)
+            {
+                _context.Addresses.Remove(a.Address);
+                _context.Statuses.Remove(a.Status);
+                _context.Apartments.Remove(a);
+            }
+
+            await _userManager.DeleteAsync(user);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
