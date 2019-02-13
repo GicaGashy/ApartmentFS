@@ -60,19 +60,6 @@ namespace AptOnly.Data
                     userManager.AddToRoleAsync(user, "GenericUser").Wait();
                 }
             }
-
-            if (userManager.FindByNameAsync("bahri@localhost").Result == null)
-            {
-                IdentityUser u = new IdentityUser();
-                u.UserName = "bahri@localhost";
-                u.Email = "bahri@gmail.com";
-
-                IdentityResult r = userManager.CreateAsync(u, "Kos300##").Result;
-                if (r.Succeeded)
-                {
-                    userManager.AddToRoleAsync(u, "GenericUser").Wait();
-                }
-            }
         }
 
 
