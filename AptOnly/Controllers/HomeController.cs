@@ -22,27 +22,51 @@ namespace AptOnly.Controllers
         }
 
 
-        public async Task<IActionResult> Search([Bind("City")] string City, [Bind("meFrom")]decimal m2From, [Bind("meTo")] decimal m2To
-            /*[Bind("meFrom")]decimal m2From, [Bind("meTo")] decimal m2To, [Bind("furbished")] bool IsFurbished*/)
+        public async Task<IActionResult> Search([Bind("City")] string City, [Bind("m2From")]decimal m2From, [Bind("m2To")] decimal m2To,
+            [Bind("rentingOnly")] bool rentingOnly /*[Bind("meTo")] decimal m2To, [Bind("furbished")] bool IsFurbished*/)
         {
             var allApartments = _context.Apartments.Include(a => a.User)
                                     .Include(a => a.Address).ThenInclude(c => c.City)
                                     .Include(a => a.Status);
+
             if (City == null && (m2From == 0 || m2To == 0))
             {
-                return View(allApartments);
+                if (rentingOnly == true)
+                {
+                    return View(allApartments.Where(a => a.IsRenting == rentingOnly));
+                }
+                else
+                {
+                    return View(allApartments);
+                }
             }
 
             if (m2From == 0 || m2To == 0)
             {
-                var CityOnlyFiltered = allApartments.Where(a => a.Address.City.CityName.Contains(City));
-                return View(CityOnlyFiltered);
+                if (rentingOnly == true)
+                {
+                    var CityOnlyFiltered = allApartments.Where(a => a.Address.City.CityName.Contains(City));
+                    return View(CityOnlyFiltered.Where(a => a.IsRenting == rentingOnly));
+                }
+                else
+                {
+                    var CityOnlyFiltered = allApartments.Where(a => a.Address.City.CityName.Contains(City));
+                    return View(CityOnlyFiltered);
+                }
             }
 
             if(City == null && (m2From != 0 && m2To != 0))
             {
-                var MeterFileterd = allApartments.Where(a => a.M2 >= m2From && a.M2 <= m2To);
-                return View(MeterFileterd);
+                if (rentingOnly == true)
+                {
+                    var MeterFileterd = allApartments.Where(a => a.M2 >= m2From && a.M2 <= m2To);
+                    return View(MeterFileterd.Where(a => a.IsRenting == rentingOnly));
+                }
+                else
+                {
+                    var MeterFileterd = allApartments.Where(a => a.M2 >= m2From && a.M2 <= m2To);
+                    return View(MeterFileterd);
+                }
             }
 
 
@@ -50,8 +74,15 @@ namespace AptOnly.Controllers
             var apartmentsFiltered = allApartments.Where(a => a.Address.City.CityName.Contains(City))
                                                 .Where(a => a.M2 >= m2From && a.M2 <= m2To);
 
+            if (rentingOnly == true)
+            {
+                return View(apartmentsFiltered.Where(a => a.IsRenting == rentingOnly));
+            }
+            else
+            {
+                return View(apartmentsFiltered);
+            }
 
-            return View(apartmentsFiltered);
         }
 
         public async Task<IActionResult> About()

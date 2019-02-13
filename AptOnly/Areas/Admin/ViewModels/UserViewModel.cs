@@ -35,5 +35,6 @@ namespace AptOnly.Areas.Admin.ViewModels
         public string ConfirmPassword { get; set; }
 
         public IdentityUser User { get; set; }
+        public string UserId { get; set; }
     }
 }

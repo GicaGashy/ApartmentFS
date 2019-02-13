@@ -1,0 +1,40 @@
+﻿@model AptOnly.Areas.Admin.ViewModels.EditUserViewModel
+
+@{
+    ViewData["Title"] = "Edito Perdorues";
+}
+
+<a class="btn" asp-action="Index"><i class="fas fa-arrow-left"></i>Mbrapa</a>
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col col-md-5">
+            <form asp-action="Edit" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input type="hidden" asp-for="Id"/>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email adresa</label>
+                    <input asp-for="Email" type="email" class="form-control" id="emailHelp" aria-describedby="emailHelp" placeholder="Shkruaj email valid">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <small id="emailHelp" class="form-text text-muted">Email-in tuaj nuk e ndajm me askend</small>
+                </div>
+                <div class="form-group">
+                    <label for="telephoneHelp">Telefoni</label>
+                    <input asp-for="PhoneNumber" type="tel" class="form-control" id="telephoneHelp" aria-describedby="telephoneHelp" placeholder="Nr. Telefonit">
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="password">Fjalkalimi</label>
+                    <input asp-for="Password" type="password" class="form-control" id="password" placeholder="Fjalkalimi">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Password</label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" id="confirmPassord" placeholder="Konfiromo Fjalkalimin">
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-warning">Ndrysho</button>
+            </form>
+        </div>
+    </div>
+</div>
