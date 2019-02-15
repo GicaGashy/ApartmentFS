@@ -1,0 +1,93 @@
+﻿@model IEnumerable<AptOnly.Models.Apartment>
+@{
+    ViewData["Title"] = "Apartmentet";
+}
+
+<div class="container">
+<div class="row">
+    <div class="col">
+        <form asp-action="Index" method="get">
+            <div class="input-group m-3">
+                <select name="i" class="custom-select" id="inputGroupSelect01">
+                    <option value="all" selected>Te gjitha</option>
+                    <option value="active">Aktive</option>
+                    <option value="passive">Pasive</option>
+                </select>
+                <div class="input-group-prepend">
+                    <input type="submit" class="btn btn-dark input-group-text" value="Filtro">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <p class="blockquote-footer">@ViewBag.Type</p>
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Statusi:</th>
+                    <th scope="col">Aktive:</th>
+                    <th scope="col">Qyteti</th>
+                    <th scope="col">Kati</th>
+                    <th scope="col">Dhoma</th>
+                    <th scope="col">Banjo</th>
+                    <th scope="col">M2</th>
+                    <th scope="col">Cmimi</th>
+                    <th scope="col">E Mobiluar</th>
+                    <th scope="col">Regjistrimi/Modifikimi</th>
+                    <th scope="col">Aksioni</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var a in Model)
+                {
+                <tr>
+                    @if (a.IsRenting)
+                    {
+                        <td>
+                            <span class="badge badge-primary">
+                                <a asp-action="Details" asp-route-id="@a.ApartmentId" class="g-link-unstyled g-color-white">Me Qera</a>
+                            </span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <span class="badge badge-warning">
+                                <a asp-action="Details" asp-route-id="@a.ApartmentId" class="g-link-unstyled g-color-black">Ne Shtije</a>
+                            </span>
+                        </td>
+                    }
+
+                    @if (a.IsActive)
+                    {
+                        <td><span class="badge badge-success">Aktive</span></td>
+                    }
+                    else
+                    {
+                        <td><span class="badge badge-danger">Jo Aktive</span></td>
+                    }
+                    <td>@a.Address.City.CityName</td>
+                    <td>@a.Floor</td>
+                    <td>@a.Bedroom</td>
+                    <td>@a.BathRoom</td>
+                    <td>@a.M2</td>
+                    <td><i class="fas fa-euro-sign fa-fw"></i>@(a.IsRenting ? a.PricePerMonth + " /Muaj" : a.GetTotalPrice() + " Total")</td>
+                    <td>@(a.IsFurbished ? "E Mobiluar" : "E pa mobiluar")</td>
+                    <td>@a.TimeStamp</td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@a.ApartmentId">Edito</a>
+                            <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@a.ApartmentId">Fshije</a>
+
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+

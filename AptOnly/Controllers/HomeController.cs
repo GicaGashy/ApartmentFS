@@ -27,7 +27,8 @@ namespace AptOnly.Controllers
         {
             var allApartments = _context.Apartments.Include(a => a.User)
                                     .Include(a => a.Address).ThenInclude(c => c.City)
-                                    .Include(a => a.Status);
+                                    .Include(a => a.Status)
+                                    .Where(a => a.IsActive == true);
 
             if (City == null && (m2From == 0 || m2To == 0))
             {
@@ -105,7 +106,7 @@ namespace AptOnly.Controllers
 
             var applicationDbContext = _context.Apartments.Include(apartment => apartment.User)
             .Include(a => a.Address).ThenInclude(c => c.City)
-            .Include(a => a.Status).Take(i);
+            .Include(a => a.Status).Take(i).Where(a => a.IsActive == true);
 
             return View(await applicationDbContext.ToListAsync());
         }
@@ -114,58 +115,40 @@ namespace AptOnly.Controllers
         public async Task<IActionResult> List([Bind("tipi")] string i) {
 
             var apartments = new List<Apartment>();
-
-            if (i == null || i == "all")
-            {
-                apartments = await _context.Apartments
+            var dbApartments = await _context.Apartments
                     .Include(a => a.User)
                     .Include(a => a.Address).ThenInclude(c => c.City)
                     .Include(a => a.Status)
+                    .Where(a => a.IsActive == true)
                     .ToListAsync();
+
+
+            if (i == null || i == "all")
+            {
+                apartments = dbApartments;
                 ViewBag.Type = "Te Gjitha";
             } else if (i == "time") {
-                apartments = await _context.Apartments
-                    .Include(a => a.User)
-                    .Include(a => a.Address).ThenInclude(c => c.City)
-                    .Include(a => a.Status).OrderByDescending(a => a.TimeStamp)
-                    .ToListAsync();
+                apartments = dbApartments.OrderByDescending(a => a.TimeStamp).ToList();
                  ViewBag.Type = "Sipas Kohes";
             } else if (i == "renting") {
-                apartments = await _context.Apartments
-                .Include(a => a.User)
-                .Include(a => a.Address).ThenInclude(c => c.City)
-                .Include(a => a.Status).Where(a => a.IsRenting == true)
-                .ToListAsync();
+                apartments = dbApartments.Where(a => a.IsRenting == true).ToList();
                 ViewBag.Type = "Me Qera";
             }
             else if (i == "selling")
             {
-                apartments = await _context.Apartments
-                .Include(a => a.User)
-                .Include(a => a.Address).ThenInclude(c => c.City)
-                .Include(a => a.Status).Where(a => a.IsRenting == false)
-                .ToListAsync();
+                apartments = dbApartments.Where(a => a.IsRenting == false).ToList();
                 ViewBag.Type = "Ne Shitje";
             }
             else if(i == "m2Ascending")
             {
-                apartments = await _context.Apartments
-                    .Include(a => a.User)
-                    .Include(a => a.Address).ThenInclude(c => c.City)
-                    .Include(a => a.Status).OrderBy(a => a.M2)
-                    .ToListAsync();
+                apartments = dbApartments.OrderBy(a => a.M2).ToList();
                 ViewBag.Type = "Metra Katror >";
             }
             else if (i == "m2Descending")
             {
-                apartments = await _context.Apartments
-                    .Include(a => a.User)
-                    .Include(a => a.Address).ThenInclude(c => c.City)
-                    .Include(a => a.Status).OrderByDescending(a => a.M2)
-                    .ToListAsync();
+                apartments = dbApartments.OrderByDescending(a => a.M2).ToList();
                 ViewBag.Type = "Metra Katror <";
             }
-
             return View(apartments);
         }
 
@@ -182,6 +165,7 @@ namespace AptOnly.Controllers
                 .Include(a => a.User)
                 .Include(a => a.Address).ThenInclude(c => c.City)
                 .Include(a => a.Status)
+                .Where(a => a.IsActive == true)
                 .FirstOrDefaultAsync(m => m.ApartmentId == id);
             if (apartment == null)
             {

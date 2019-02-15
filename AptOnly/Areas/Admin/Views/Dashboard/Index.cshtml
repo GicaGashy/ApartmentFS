@@ -1,9 +1,7 @@
 ﻿@model AptOnly.Areas.Admin.ViewModels.ApartmentsUsersViewModel
-
 @{
     ViewData["Title"] = "Admin Dashboard";
 }
-
 <div class="container-fluid">
     <div class="row m-3">
         <div class="col">
@@ -11,7 +9,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Mireserdhe @User.Identity.Name i</h5>
-                    <p class="card-text">Shikoj <a class="" asp-action="">Produktet </a>@Model.Apartments.Count()</p>
+                    <p class="card-text">Shikoj <a class="" asp-controller="Apartments" asp-action="Index">Produktet </a>@Model.Apartments.Count()</p>
                     <p class="card-text">Shikoj <a class="" asp-controller="Users" asp-action="Index">Users </a>@Model.Users.Count()</p>
                 </div>
             </div>

@@ -27,6 +27,8 @@ namespace AptOnly.Models
 
         public bool IsFurbished { get; set; }
 
+        public bool IsActive { get; set; }
+
         [Required]
         public bool IsRenting { get; set; }
 
