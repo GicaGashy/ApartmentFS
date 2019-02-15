@@ -8,7 +8,7 @@ namespace AptOnly.ViewModels
 {
     public class CitiesApartment
     {
-        public IEnumerable<Aparttment> Aparttments { get; set; }
+        public IEnumerable<Apartment> Aparttments { get; set; }
         public IEnumerable<City> Cities { get; set; }
     }
 }

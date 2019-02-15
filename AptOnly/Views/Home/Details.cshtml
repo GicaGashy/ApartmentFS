@@ -43,7 +43,7 @@
             <div class="col border-left">
                 <h4>Status</h4>
                 <p class="blockquote-footer">@(Model.IsFurbished ? "E mobiluar" : "E pa mobiluar")</p>
-                <p class="blockquote-footer">@(Model.Status.IsNew ? "E re" : "E vjeter")</p>
+                <p class="blockquote-footer font-weight-bold">@(Model.Status.IsNew ? "E re  " : "E vjeter")<span class="badge badge-primary">NEW</span></p>
                 <p class="blockquote-footer">Viti i ndertimit: @Model.Status.ReleaseDate.Year</p>
                 <p class="blockquote-footer">Emri i Pronarit: @Model.User.UserName </p>
                 <p class="blockquote-footer">Emaili: @Model.User.Email</p>

@@ -8,6 +8,7 @@ using AptOnly.Models;
 using AptOnly.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using AptOnly.ViewModels;
 
 namespace AptOnly.Controllers
 {
@@ -28,7 +29,7 @@ namespace AptOnly.Controllers
             var allApartments = _context.Apartments.Include(a => a.User)
                                     .Include(a => a.Address).ThenInclude(c => c.City)
                                     .Include(a => a.Status)
-                                    .Where(a => a.IsActive == true);
+                                    .Where(a => a.IsActive == true).AsNoTracking();
 
             if (City == null && (m2From == 0 || m2To == 0))
             {
@@ -93,7 +94,23 @@ namespace AptOnly.Controllers
             return View(apartments);
         }
 
-        public async Task<IActionResult> Index([Bind("Count")] int i)
+        public async Task<IActionResult> Index(int? page)
+        {
+            var apartments = _context.Apartments.Include(a => a.Address).ThenInclude(a => a.City)
+                .Include(a => a.Status).Where(a => a.IsActive == true).AsNoTracking();
+
+            int pageSize = 3;
+
+            var vm = new IndexViewModel
+            {
+                Apartments = await PaginatedList<Apartment>.CreateAsync(apartments, page ?? 1, pageSize)
+            };
+
+            return View(vm);
+        }
+
+        /* Original Index
+         * public async Task<IActionResult> Index([Bind("Count")] int i)
         {
             if (i < 1)
             {
@@ -110,6 +127,8 @@ namespace AptOnly.Controllers
 
             return View(await applicationDbContext.ToListAsync());
         }
+         
+             */
 
 
         public async Task<IActionResult> List([Bind("tipi")] string i) {

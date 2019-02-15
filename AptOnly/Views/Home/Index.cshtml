@@ -1,43 +1,83 @@
-﻿@model IEnumerable<Apartment>
+﻿@model AptOnly.ViewModels.IndexViewModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
+    var prevDisabled = !Model.Apartments.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Apartments.HasNextPage ? "disabled" : "";
 }
 
 
-    <div class="m-5">
-        <div class="container">
-            <h1 class="text-center display-4 border-bottom pb-5"><i>Doni me ble? </i>Me shit? <i class="text-warning">Banesë...</i></h1>
+<div class="m-5">
+    <div class="container">
+        <h1 class="text-center display-4 border-bottom pb-5"><i>Doni me ble? </i>Me shit? <i class="text-warning">Banesë...</i></h1>
+    </div>
+</div>
+<div class="container">
+    <h5 class="mb-5"><i>Banesat e fundit ( @Model.Apartments.Count() )</i></h5>
+    <!-- Pager -->
+    <div class="row align-items-center">
+        <div class="col-6 mb-3">
+            <div class="btn-group-sm">
+                <a asp-action="Index"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-page="@(Model.Apartments.PageIndex - 1)"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                   class="btn btn-info @prevDisabled">
+                    Previous
+                </a>
+                <a asp-action="Index"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-page="@(Model.Apartments.PageIndex + 1)"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                   class="btn btn-info @nextDisabled">
+                    Next
+                </a>
+            </div>
         </div>
     </div>
-    <div class="container">
-        <h5 class="mb-5"><i>Banesat e fundit ( @Model.Count() )</i></h5>
-        @foreach (var a in Model)
-        {
-            <figure class="figure">
-                <img src="~/images/@a.Image" class="figure-img img-fluid rounded">
-                <figcaption class="figure-caption">
-                    @a.Address.City.CityName, @a.M2 m2
-                    @if (a.IsRenting)
-                    {
-                        <span class="badge badge-primary">
-                            <a asp-action="Details" asp-route-id="@a.ApartmentId" class="g-link-unstyled g-color-white">Me Qera</a>
-                        </span>
-                    }
-                    else
-                    {
-                        <span class="badge badge-warning">
-                            <a asp-action="Details" asp-route-id="@a.ApartmentId" class="g-link-unstyled g-color-black">Ne Shitje</a>
-                        </span>
-                    }
+    @foreach (var a in Model.Apartments)
+    {
+        <figure class="figure">
+            <img src="~/images/@a.Image" class="figure-img img-fluid rounded">
+            <figcaption class="figure-caption">
+                @a.Address.City.CityName, @a.M2 m2
+                @if (a.IsRenting)
+                {
+                    <span class="badge badge-primary">
+                        <a asp-action="Details" asp-route-id="@a.ApartmentId" class="g-link-unstyled g-color-white">Me Qera</a>
+                    </span>
+                }
+                else
+                {
+                    <span class="badge badge-warning">
+                        <a asp-action="Details" asp-route-id="@a.ApartmentId" class="g-link-unstyled g-color-black">Ne Shitje</a>
+                    </span>
+                }
 
-                </figcaption>
-                <figcaption class="figure-caption">@a.GetTotalPrice() Euro</figcaption>
-                <figcaption class="figure-caption">@a.TimeStamp</figcaption>
-            </figure>
-            <hr />
-        }
-        <form asp-action="Index" method="post" class="text-center">
-            <input name="i" type="hidden" value="@Model.Count()" />
-            <input type="submit" name="name" value="Me shume..." class="btn btn-light" />
-        </form>
+            </figcaption>
+            <figcaption class="figure-caption">@a.GetTotalPrice() Euro</figcaption>
+            <figcaption class="figure-caption">@a.TimeStamp</figcaption>
+        </figure>
+        <hr />
+    }
+    <!-- Pager -->
+    <div class="row align-items-center">
+        <div class="col-6 mb-3">
+            <div class="btn-group-sm">
+                <a asp-action="Index"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-page="@(Model.Apartments.PageIndex - 1)"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                   class="btn btn-info @prevDisabled">
+                    Previous
+                </a>
+                <a asp-action="Index"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-page="@(Model.Apartments.PageIndex + 1)"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                   class="btn btn-info @nextDisabled">
+                    Next
+                </a>
+            </div>
+        </div>
     </div>
+</div>
