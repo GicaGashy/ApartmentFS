@@ -4,12 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ApartmentFS</title>
-
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel='shortcut icon' type='image/x-icon' href='~/images/fav_b.png' />
-
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -22,16 +20,16 @@
         <div id="navbarNavDropdown" class="navbar-collapse collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link active">Home</a>
+                    <a is-active-route asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a asp-area="" asp-controller="Home" asp-action="List" class="nav-link active">Shpalljet</a>
+                    <a is-active-route asp-area="" asp-controller="Home" asp-action="List" class="nav-link">Shpalljet</a>
                 </li>
                 <li class="nav-item">
-                    <a asp-area="" asp-controller="Home" asp-action="Search" class="nav-link active">Kerko</a>
+                    <a is-active-route asp-area="" asp-controller="Home" asp-action="Search" class="nav-link">Kerko</a>
                 </li>
                 <li class="nav-item">
-                    <a asp-area="" asp-controller="Home" asp-action="About" class="nav-link active">Rreth Nesh</a>
+                    <a is-active-route asp-area="" asp-controller="Home" asp-action="About" class="nav-link">Rreth Nesh</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
